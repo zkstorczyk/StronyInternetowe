@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<style>
+table, td {
+    border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+<p>Click the button to add a new row at the first position of the table and then add cells and content.</p>
+
+<table id="myTable">
+  <tr>
+    <td>Row1 cell1</td>
+    <td>Row1 cell2</td>
+  </tr>
+  <tr>
+    <td>Row2 cell1</td>
+    <td>Row2 cell2</td>
+  </tr>
+  <tr>
+    <td>Row3 cell1</td>
+    <td>Row3 cell2</td>
+  </tr>
+</table>
+<br>
+
+<p id="demo"></p>
+<button onclick="dodajKomorke()">dodaj komurke</button>
+<button onclick="wyslij()">wyslij</button><br>
+<button onclick="zmienTekst('asdsada')">zawartosc</button><br>
+<button onclick="nastepnyWiersz()">nastepny wiersz</button>
+
+<script>
+var table = document.getElementById("myTable");//widoczna tabelka
+var x=0;//położenie X [wiersz] danej komurki 
+var y=-1;//położenie Y danej [kolumna]  komorki  -1 ostatnia w wierszu
+
+function dodajKomorke() {
+    
+    var row = document.getElementById("myTable").rows[x];
+    var cell1 = row.insertCell(y);
+   
+    cell1.innerHTML = "";
+
+}
+
+function zmienTekst(zawartosc) {
+    
+    var cell1 = document.getElementById("myTable").rows[x].cells;
+       cell1[0].innerHTML=cell1.length;
+    cell1[cell1.length-1].innerHTML = zawartosc;
+
+}
+
+
+
+function wyslij() {
+
+var myTableArray = [];
+
+$("table#myTable tr").each(function() {
+    var arrayOfThisRow = [];
+    var tableData = $(this).find('td');
+    if (tableData.length > 0) {
+        tableData.each(function() { arrayOfThisRow.push($(this).text()); });
+
+        myTableArray.push(arrayOfThisRow);
+    }
+});
+
+
+
+    var fruits = myTableArray.join('\n');
+    fruits=fruits.toString().replace(/\,/g,";");
+
+document.getElementById("demo").innerHTML = fruits;
+
+}
+
+function nastepnyWiersz() {
+
+
+x=x+1;
+
+
+if(document.getElementById("myTable").rows.length-1<x){
+table.insertRow(-1);
+}
+
+
+document.getElementById("demo").innerHTML ="x="+ x+ " D="+document.getElementById("myTable").rows.length;
+}
+
+</script>
+
+
+
+
+</body>
+</html>
